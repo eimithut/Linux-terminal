@@ -9,11 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.min.css" rel="stylesheet">
-    <script>
-      // SAFETY POLYFILL: Defines 'process' in the window to prevent
-      // "Uncaught ReferenceError: process is not defined" crashes.
-      window.process = { env: { NODE_ENV: 'production' } };
-    </script>
     <style>
       body {
         margin: 0;
@@ -71,7 +66,7 @@
         font-family: 'DSEG14-Classic', monospace;
       }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",

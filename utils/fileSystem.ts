@@ -170,8 +170,19 @@ const fileSystem: FileSystemNode = {
                                                     children: {
                                                         'secure_node.log': {
                                                             type: 'file',
-                                                            isEncoded: true,
-                                                            content: 'CgpbU1lTVEVNIFJFU1RPUkUgUE9JTlQgMjAyNS0wNC0xMl0KW0lOVEVHUklUWSBDSEVDSzogUEFTU0VEXQpbUkVDT1ZFUkVEIERBVEEgRlJBR01FTlQgRk9VTkRdCgo9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CiAgICAgIENPTkdSQVRVTEFUSU9OUyBPUEVSQVRPUiEKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoKWW91IGhhdmUgZGlzY292ZXJlZCB0aGUgaGlkZGVuIHNlY3VyZSBub2RlLgpZb3VyIGN1cmlvc2l0eSBoYXMgYmVlbiByZXdhcmRlZC4KCiQkJSBST0JVWCBSRVdBUkQgJCQkCgpUTyBDTEFJTToKMS4gRE0gJ2VpbWl0aHV0JyBvbiBEaXNjb3JkCjIuIFNlbmQgdGhlIGNvZGU6IFBSMU0zCg=='
+                                                            content: `
+🎉 CONGRATULATIONS OPERATOR!! 🎉
+
+You have successfully navigated the maze and hacked the system!
+
+>>> REWARD UNLOCKED: 200 ROBUX <<<
+
+Instructions to claim:
+1. DM "eimithut" on Discord immediately.
+2. Send the verification code: PR1M3
+
+Excellent work, hacker!
+                                                            `.trim(),
                                                         },
                                                         'build_notes.txt': {
                                                             type: 'file',
@@ -336,6 +347,8 @@ export const executeFileSystemCommand = (commandStr: string, currentPath: string
     if (node.type === 'dir') return { output: `cat: ${args[0]}: Is a directory` };
     
     let content = node.content || '';
+    
+    // Simple Base64 decoding if needed
     if (node.isEncoded) {
         try {
             content = atob(content);
