@@ -1,8 +1,5 @@
 import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
 
-// Initialize the client. API_KEY is strictly from process.env.API_KEY
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 // System instruction to enforce the persona
 const SYSTEM_INSTRUCTION = `
 You are a highly advanced AI interface running on a retro terminal from the 1980s. 
@@ -12,11 +9,25 @@ but you can use code blocks.
 Always refer to the user as "OPERATOR".
 `;
 
+let ai: GoogleGenAI | null = null;
 let chatSession: Chat | null = null;
+
+const getAiClient = (): GoogleGenAI => {
+  if (!ai) {
+    // API_KEY is strictly from process.env.API_KEY, injected via vite.config.ts
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) {
+      console.error("API_KEY is missing from environment variables.");
+    }
+    ai = new GoogleGenAI({ apiKey: apiKey || "" });
+  }
+  return ai;
+};
 
 export const getChatSession = (): Chat => {
   if (!chatSession) {
-    chatSession = ai.chats.create({
+    const client = getAiClient();
+    chatSession = client.chats.create({
       model: 'gemini-2.5-flash',
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
