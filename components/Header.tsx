@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Theme, ChatMode } from '../types';
 
@@ -19,7 +18,8 @@ const Header: React.FC<HeaderProps> = ({ theme, mode, isMuted, onToggleTheme, on
     return () => clearInterval(timer);
   }, []);
 
-  const formattedDate = time.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.');
+  // Use 'de-DE' locale for German date format (Day.Month.Year)
+  const formattedDate = time.toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit' });
   const formattedTime = time.toLocaleTimeString('en-US', { hour12: false });
 
   const isRetro = theme === 'retro';
