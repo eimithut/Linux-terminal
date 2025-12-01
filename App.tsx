@@ -56,6 +56,24 @@ const App: React.FC = () => {
     }
   }, [messages, shouldAutoScroll]);
 
+  // --- SYSTEM CHECKS ---
+  useEffect(() => {
+    if (!isBooting) {
+      // Check if API Key was injected during build.
+      // process.env.API_KEY is replaced by a string literal in vite.config.ts
+      const apiKey = process.env.API_KEY;
+      
+      if (!apiKey || apiKey.trim() === '') {
+        setMessages(prev => [...prev, {
+          id: 'sys-error-no-key',
+          text: 'FATAL ERROR: API_KEY MISSING.\nDEPLOYMENT CONFIGURATION INCOMPLETE.\nPLEASE SET API_KEY IN CLOUDFLARE SETTINGS.',
+          sender: Sender.SYSTEM,
+          timestamp: new Date()
+        }]);
+      }
+    }
+  }, [isBooting]);
+
   // --- TYPEWRITER LOOP ---
   useEffect(() => {
     if (isProcessing && isTypewriterActive.current) {
